@@ -22,7 +22,7 @@
       <tb> <button>
         player <br> 
         <img src="https://cdn2.iconfinder.com/data/icons/knight-templar-at-war/253/knight-004-512.png" alt="player" style="width: 100px; height: 100px; float: left;"> <br>
-        25/25 hp <br>
+        25/25 health <br>
       </button> </tb>
     </table>
   </body>
@@ -46,6 +46,44 @@
   </body>
 
   <script>
-    
+    const cEnemies = document.getElementById('enemies');
+    const cAllies = document.getElementById('allies');
+    const pDeck = document.getElementById('deck');
+
+    const enemies = [
+      const slime = new Unit("slime", "
+    ];
+    const allies = [];
+    const cards = [];
+
+    class Unit {
+      constructor(name, health, armor, deck, image) {
+        this.name = name;
+        this.image = image;
+        this.health = health;
+        this.armor = armor;
+        this.deck = deck;
+      }
+    }
+
+    class Deck {
+      cards = [];
+      hand = [];
+      discard = [];
+      
+      constructor(cards) {
+        this.cards = cards;
+      }
+
+      
+    }
+
+    class Card {
+      constructor(name, desc, image) {
+        this.name = name;
+        this.desc = desc;
+        this.image = image;
+      }
+    }
   </script>
 </html>
