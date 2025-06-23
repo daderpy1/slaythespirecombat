@@ -142,7 +142,7 @@
       static startFight() {
         var numEnemies = 1;
 
-        for (int i = 0; i < numEnemies; i++) {
+        for (let i = 0; i < numEnemies; i++) {
           enemy = Math.random() * enemies.length;
           currentEnemies.push(makeCopy(enemies[enemy], unit));
           updateScreen.makeUnitB(newEnemy);
