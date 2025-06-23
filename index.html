@@ -137,18 +137,6 @@
       }
     }
 
-    class GameManager {
-      static startFight() {
-        var numEnemies = 1;
-
-        for (let i = 0; i < numEnemies; i++) {
-          enemy = Math.random() * enemies.length;
-          currentEnemies.push(makeCopy(enemies[enemy], unit));
-          updateScreen.makeUnitB(newEnemy);
-        }
-      }
-    }
-
     class updateScreen {
       static makeUnitB(unit) {
         const newButton = document.createElement("button");
@@ -173,22 +161,34 @@
       }
     }
 
+    class GameManager {
+      static startFight() {
+        var numEnemies = 1;
+
+        for (let i = 0; i < numEnemies; i++) {
+          enemy = Math.random() * enemies.length;
+          currentEnemies.push(makeCopy(enemies[enemy], "unit"));
+          updateScreen.makeUnitB(newEnemy);
+        }
+      }
+    }
+
     const cards = [
       slash = new Card("slash", "deal 5 damage", "enemy", 1, ""),
       slime = new Card("slime", "deal 3 damage", "ally", 1, "")
     ];
     const enemies = [
-      slime = new Unit("slime", 10, 0, 1, new Deck([makeCopy(cards[1], card), makeCopy(cards[1], card)]), "https://image.similarpng.com/file/similarpng/original-picture/2020/07/monster-character-Hand-drawn-on-transparent-background-PNG.png")
+      slime = new Unit("slime", 10, 0, 1, new Deck([makeCopy(cards[1], "card"), makeCopy(cards[1], "card")]), "https://image.similarpng.com/file/similarpng/original-picture/2020/07/monster-character-Hand-drawn-on-transparent-background-PNG.png")
       
     ];
     const allies = [
-      knight = new Unit("knight", 25, 0, 3, new Deck(makeCopy(cards[0], card), makeCopy(cards[0], card)), "https://cdn2.iconfinder.com/data/icons/knight-templar-at-war/253/knight-004-512.png")
+      knight = new Unit("knight", 25, 0, 3, new Deck(makeCopy(cards[0], "card"), makeCopy(cards[0], "card")), "https://cdn2.iconfinder.com/data/icons/knight-templar-at-war/253/knight-004-512.png")
     ];
 
     log.textContent += "click end turn button to start\n";
     endTurn.addEventListener("click", function() {
       if (currentAllies.length == 0) {
-        currentAllies.push(makeCopy(allies[0], unit));
+        currentAllies.push(makeCopy(allies[0], "unit"));
         updateScreen.makeUnitB(currentAllies[0]);
       } else {
         turn = !turn;
