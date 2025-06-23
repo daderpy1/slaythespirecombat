@@ -9,31 +9,31 @@
 
   <div>
     <table id="enemies">
-      <tb> <button>
+      <!--<tb> <button>
         slime <br>
         <img src="https://image.similarpng.com/file/similarpng/original-picture/2020/07/monster-character-Hand-drawn-on-transparent-background-PNG.png" alt="enemy" style="width: 100px; height: 100px; float: right;"> <br>
         10/10 hp <br>
-      </button> </tb>
+      </button> </tb>-->
     </table>
   </div>
 
   <body>
     <table id="allies">
-      <tb> <button>
+      <!--<tb> <button>
         player <br> 
         <img src="https://cdn2.iconfinder.com/data/icons/knight-templar-at-war/253/knight-004-512.png" alt="player" style="width: 100px; height: 100px; float: left;"> <br>
         25/25 health <br>
-      </button> </tb>
+      </button> </tb>-->
     </table>
   </body>
   
   <body>
     <table id="deck" class="center">
-      <td><button> 
+      <!--<td><button> 
         slash <br>
         <img src="https://www.seekpng.com/png/detail/29-299682_black-sword-png.png" style="width: 50px; height: 50px;"> <br>
         deal 4 dmg <br>
-      </button></td>
+      </button></td>-->
     </table>
   </body>
 
@@ -41,48 +41,130 @@
     <button id="endTurn"> end turn </button>
   </body>
 
-  <div>
+  <div id="log">
     combat start
   </div>
 
   <script>
-    const cEnemies = document.getElementById('enemies');
-    const cAllies = document.getElementById('allies');
-    const pDeck = document.getElementById('deck');
+    const cEnemies = document.getElementById("enemies");
+    const cAllies = document.getElementById("allies");
+    const pDeck = document.getElementById("deck");
+    const log = document.getElementById("log");
+    const endTurn = document.getElementById("endTurn");
 
     const enemies = [
-      const slime = new Unit("slime", "
+      slime = new Unit("slime", 10, 0, 1, new Deck([cards[0], cards[0]]), "https://image.similarpng.com/file/similarpng/original-picture/2020/07/monster-character-Hand-drawn-on-transparent-background-PNG.png")
+      
     ];
     const allies = [];
-    const cards = [];
+    const cards = [
+      slash = new Card("slash", "deal 5 damage", "enemy", 1, ""),
+      slime = new Card("slime", "deal 3 damage", "ally", 1, "")
+    ];
 
+    var currentEnemies = [];
+    var currentAllies = [];
+    
     class Unit {
-      constructor(name, health, armor, deck, image) {
+      var name = "def";
+      var image = "";
+      var health = 5;
+      var armor = 0;
+      var deck = [];
+      var energy = 1;
+      
+      constructor(name, health, armor, energy, deck, image) {
         this.name = name;
         this.image = image;
         this.health = health;
         this.armor = armor;
         this.deck = deck;
+        this.energy = energy;
+      }
+
+      damageUnit(damage) {
+        if (armor > 0) {
+          if (damage > armor) {
+            armor = 0;
+            health -= damage - armor;
+          } else {
+            armor -= damage;
+          }
+        } else {
+          health -= damage;
+        }
       }
     }
 
-    class Deck {
-      cards = [];
-      hand = [];
-      discard = [];
-      
+    class Deck {  
       constructor(cards) {
-        this.cards = cards;
+        this.draw = cards;
       }
 
-      
+      drawCard() {
+        if (draw.length > 0) {
+          drawn = Math.random() * draw.length;
+          hand.push(draw[drawn]);
+          draw.splice(drawn, 1);
+        }
+      }
+
+      //useCard(index, target) {
+        
+      //}
+
+      reshuffle() {
+        draw = [...discard];
+        discard = [];
+      }
     }
 
     class Card {
-      constructor(name, desc, image) {
+      constructor(name, desc, target, cost, image) {
         this.name = name;
         this.desc = desc;
         this.image = image;
+        this.target = target;
+        this.cost = cost;
+      }
+    }
+
+    class GameManager {
+      static startFight() {
+        var numEnemies = 1;
+
+        for (int i = 0; i < numEnemies; i++) {
+          enemy = Math.random() * enemies.length;
+          newEnemy = new Unit();
+          Object.assign(newEnemy, enemies[enemy]);
+          makeUnitB(newEnemy);
+        }
+      }
+
+       
+    }
+
+    class updateScreen {
+      static makeUnitB(unit) {
+        const newButton = document.createElement("button");
+        const name = document.createTextNode(unit.name);
+        const img = document.createElement("img");
+        img.src = unit.image;
+        const stats =  document.createTextNode(uni.health);
+        const tbItem = document.createElement("tb"); 
+        
+        newButton.appendChild(name);
+        newButton.appendChild(document.createElement("br"));
+        newButton.appendChild(img);
+        newButton.appendChild(document.createElement("br"));
+        newButton.appendChild(stats);
+        
+        //newButton.addEventListener("click", function() {
+          
+        //});
+
+        tbItem.appendChild(newButton);
+        currentEnemies.appendChild(tbItem);
       }
     }
   </script>
