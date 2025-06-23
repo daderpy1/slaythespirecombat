@@ -42,7 +42,7 @@
   </body>
 
   <div id="log">
-    combat start
+    
   </div>
 
   <script>
@@ -53,10 +53,12 @@
     const endTurn = document.getElementById("endTurn");
 
     const enemies = [
-      slime = new Unit("slime", 10, 0, 1, new Deck([cards[0], cards[0]]), "https://image.similarpng.com/file/similarpng/original-picture/2020/07/monster-character-Hand-drawn-on-transparent-background-PNG.png")
+      slime = new Unit("slime", 10, 0, 1, new Deck(makeCopy(cards[1], card), makeCopy(cards[1], card)]), "https://image.similarpng.com/file/similarpng/original-picture/2020/07/monster-character-Hand-drawn-on-transparent-background-PNG.png")
       
     ];
-    const allies = [];
+    const allies = [
+      knight = new Unit("knight", 25, 0, 3, new Deck(makeCopy(cards[0], card), makeCopy(cards[0], card)), "https://cdn2.iconfinder.com/data/icons/knight-templar-at-war/253/knight-004-512.png");
+    ];
     const cards = [
       slash = new Card("slash", "deal 5 damage", "enemy", 1, ""),
       slime = new Card("slime", "deal 3 damage", "ally", 1, "")
@@ -64,6 +66,7 @@
 
     var currentEnemies = [];
     var currentAllies = [];
+    var turn = true; //true = player, false = enemy
     
     class Unit {
       var name = "def";
@@ -120,6 +123,12 @@
     }
 
     class Card {
+      this.name = "test";
+      this.desc = "";
+      this.image = "";
+      this.target = "enemy";
+      this.cost = 0;
+      
       constructor(name, desc, target, cost, image) {
         this.name = name;
         this.desc = desc;
@@ -135,8 +144,7 @@
 
         for (int i = 0; i < numEnemies; i++) {
           enemy = Math.random() * enemies.length;
-          newEnemy = new Unit();
-          Object.assign(newEnemy, enemies[enemy]);
+          
           makeUnitB(newEnemy);
         }
       }
@@ -167,5 +175,26 @@
         currentEnemies.appendChild(tbItem);
       }
     }
+
+    function makeCopy(object, type) {
+      if (type == "unit") {
+        newObject = new Unit();
+      } else if (type == "card") {
+        newObject = new Card();
+      }
+
+      Object.assign(newObject, object);
+      return newObject;
+    }
+
+    log.textContent += "click end turn button to start\n";
+    endTurn.addEventListener("click", function() {
+      if (currentAllies.length == 0) {
+        currentAllies.push(makeCopy(allies[0], unit));
+        updateScreen.makeUnitB(currentAllies[0]);
+      } else {
+        turn = turn!;
+      }
+    });
   </script>
 </html>
