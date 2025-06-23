@@ -138,7 +138,8 @@
     }
 
     class updateScreen {
-      static makeUnitB(unit) {
+      static makeUnitB(array, index) {
+        const unit = array[index];
         const newButton = document.createElement("button");
         const name = document.createTextNode(unit.name);
         const img = document.createElement("img");
@@ -157,7 +158,13 @@
         //});
 
         tbItem.appendChild(newButton);
-        currentEnemies.appendChild(tbItem);
+
+        if (array == currentEnemies) {
+          cEnemies.appendChild(tbItem);
+        } else {
+          cAllies.appendChild(tbItem);
+        }
+        
       }
     }
 
@@ -168,7 +175,7 @@
         for (let i = 0; i < numEnemies; i++) {
           enemy = Math.random() * enemies.length;
           currentEnemies.push(makeCopy(enemies[enemy], "unit"));
-          updateScreen.makeUnitB(newEnemy);
+          updateScreen.makeUnitB(currentEnemies, i);
         }
       }
     }
@@ -189,7 +196,7 @@
     endTurn.addEventListener("click", function() {
       if (currentAllies.length == 0) {
         currentAllies.push(makeCopy(allies[0], "unit"));
-        updateScreen.makeUnitB(currentAllies[0]);
+        updateScreen.makeUnitB(currentAllies, 0);
       } else {
         turn = !turn;
       }
