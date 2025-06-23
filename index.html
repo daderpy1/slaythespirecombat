@@ -52,21 +52,20 @@
     const log = document.getElementById("log");
     const endTurn = document.getElementById("endTurn");
 
-    const enemies = [
-      slime = new Unit("slime", 10, 0, 1, new Deck([makeCopy(cards[1], card), makeCopy(cards[1], card)]), "https://image.similarpng.com/file/similarpng/original-picture/2020/07/monster-character-Hand-drawn-on-transparent-background-PNG.png")
-      
-    ];
-    const allies = [
-      knight = new Unit("knight", 25, 0, 3, new Deck(makeCopy(cards[0], card), makeCopy(cards[0], card)), "https://cdn2.iconfinder.com/data/icons/knight-templar-at-war/253/knight-004-512.png")
-    ];
-    const cards = [
-      slash = new Card("slash", "deal 5 damage", "enemy", 1, ""),
-      slime = new Card("slime", "deal 3 damage", "ally", 1, "")
-    ];
-
     var currentEnemies = [];
     var currentAllies = [];
     var turn = true; //true = player, false = enemy
+
+    function makeCopy(object, type) {
+      if (type == "unit") {
+        newObject = new Unit();
+      } else if (type == "card") {
+        newObject = new Card();
+      }
+
+      Object.assign(newObject, object);
+      return newObject;
+    }
     
     class Unit {
       name = "def";
@@ -174,16 +173,17 @@
       }
     }
 
-    function makeCopy(object, type) {
-      if (type == "unit") {
-        newObject = new Unit();
-      } else if (type == "card") {
-        newObject = new Card();
-      }
-
-      Object.assign(newObject, object);
-      return newObject;
-    }
+    const enemies = [
+      slime = new Unit("slime", 10, 0, 1, new Deck([makeCopy(cards[1], card), makeCopy(cards[1], card)]), "https://image.similarpng.com/file/similarpng/original-picture/2020/07/monster-character-Hand-drawn-on-transparent-background-PNG.png")
+      
+    ];
+    const allies = [
+      knight = new Unit("knight", 25, 0, 3, new Deck(makeCopy(cards[0], card), makeCopy(cards[0], card)), "https://cdn2.iconfinder.com/data/icons/knight-templar-at-war/253/knight-004-512.png")
+    ];
+    const cards = [
+      slash = new Card("slash", "deal 5 damage", "enemy", 1, ""),
+      slime = new Card("slime", "deal 3 damage", "ally", 1, "")
+    ];
 
     log.textContent += "click end turn button to start\n";
     endTurn.addEventListener("click", function() {
