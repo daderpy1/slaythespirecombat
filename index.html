@@ -55,7 +55,7 @@
     var cEnemiesA = [];
     var cAlliesA = [];
 
-    var searching = null;
+    var searching = -1;
     var selectedD = 0;
 
     function makeCopy(object, type) {
@@ -148,32 +148,52 @@
         this.val = val;
       }
 
-      findTarget(card) { //current card, expects only player use
-        searching = card;
+      findTarget(index) { //current card, expects only player use
+        searching = index;
         addLog("use on who?");
       }
 
-      static doAction(target, user) {
-        if (user == "player") {
-          if (searching != null && target != this) {
-            if (action == "dmg" && array != searchingA) {
-              target.damageUnit(val);
-              addLog(target.name + " took " + val.toString() + "damage");
-            } else if (action == "shi" && array == searchingA) {
-              target.shield += val;
-              addLog(target.name + " gained " + val.toString() + "shield");
-            }
+      static playerAction(array, index) { //array and index of target, assumes player play
+        target = array[index];
+        
+        if (searching != -1) {
+          if (searching == -1) {
+            addLog("no card to play"); 
+          } else if (target == this) {
+            addLog("cancelled");
           } else {
-            addLog("no card/cancelled");
-          }
-          Update.removeB("card", searching);
-          searching = null;
-          
+            card = cHandA[searching];
+            if (action == "dmg" && array == cEnemies) {
+              target.damageUnit(card.val);
+              addLog(target.name + " took " + card.val.toString() + "damage");
+            } else if (action == "shi" && array == cAllies) {
+              target.shield += card.val;
+              addLog(target.name + " gained " + card.val.toString() + "shield");
+            } else {
+              addLog("wrong target");
+            }
+          } 
+
+          cHand.splice(searching, 1); //sync with unit hand
+          Update.removeB("card", cHand);
+          searching = -1;
           Update.stats();
-        } else if (user == "bot") {
-          target.damageUnit(val);
-          addLog(target.name + " took " + val.toString() + "damage");
-        }
+        } 
+      }
+
+      botAction(array, index, deck) { //assumes bot play
+          target = array[index];
+        
+          if (action == "dmg") {
+            target.damageUnit(val);
+            addLog(target.name + " took " + val.toString() + "damage");
+          } else if (action == "shi") {
+            target.shield += val;
+            addLog(target.name + " gained " + val.toString() + "shield");
+          }
+
+          deck.hand.splice();
+          Update.stats();
       }
     }
 
@@ -194,7 +214,7 @@
         newButton.appendChild(stats);
         
         newButton.addEventListener("click", function() {
-          Card.doAction(array[index], "player");
+          Card.doAction(array, index, "player");
         });
 
         tbItem.appendChild(newButton);
@@ -262,16 +282,14 @@
         }
       }
 
-      //static changeHands() {
+      //static changeHands() change viewed hand between allies
 
-      //}
-
-      static removeB(user, index) {
-        if (user == "player") {
+      static removeB(target, index) {
+        if (target == "ally") {
           var table = cAllies;
-        } else if (user == "bot") {
+        } else if (target == "enemy") {
           var table = cEnemies;
-        } else {
+        } else if (target == "card") {
           var table = cHand;
         }
         
@@ -312,6 +330,8 @@
         deck.drawCard(drawCount);
         
       }
+
+      //static tickStatus() tick all statuses
     }
 
     const cards = [
