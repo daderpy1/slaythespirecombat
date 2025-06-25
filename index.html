@@ -197,6 +197,7 @@
       if (currentAllies.length == 0) {
         currentAllies.push(makeCopy(allies[0], "unit"));
         updateScreen.makeUnitB(currentAllies, 0);
+        GameManager.startFight();
       } else {
         turn = !turn;
       }
