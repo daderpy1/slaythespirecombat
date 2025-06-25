@@ -8,7 +8,7 @@
   </body>
 
   <div>
-    <table id="enemies">
+    <table id="enemies" class="center">
       <!--<tb> <button>
         slime <br>
         <img src="https://image.similarpng.com/file/similarpng/original-picture/2020/07/monster-character-Hand-drawn-on-transparent-background-PNG.png" alt="enemy" style="width: 100px; height: 100px; float: right;"> <br>
@@ -18,7 +18,7 @@
   </div>
 
   <body>
-    <table id="allies">
+    <table id="allies" class="center">
       <!--<tb> <button>
         player <br> 
         <img src="https://cdn2.iconfinder.com/data/icons/knight-templar-at-war/253/knight-004-512.png" alt="player" style="width: 100px; height: 100px; float: left;"> <br>
@@ -28,7 +28,7 @@
   </body>
   
   <body>
-    <table id="deck" class="center">
+    <table id="hand" class="center">
       <!--<td><button> 
         slash <br>
         <img src="https://www.seekpng.com/png/detail/29-299682_black-sword-png.png" style="width: 50px; height: 50px;"> <br>
@@ -48,13 +48,15 @@
   <script>
     const cEnemies = document.getElementById("enemies");
     const cAllies = document.getElementById("allies");
-    const pDeck = document.getElementById("deck");
+    const cHand = document.getElementById("hand");
     const log = document.getElementById("log");
     const endTurn = document.getElementById("endTurn");
 
-    var currentEnemies = [];
-    var currentAllies = [];
-    var turn = true; //true = player, false = enemy
+    var cEnemiesA = [];
+    var cAlliesA = [];
+
+    var searching = null;
+    var selectedD = 0;
 
     function makeCopy(object, type) {
       if (type == "unit") {
@@ -66,31 +68,38 @@
       Object.assign(newObject, object);
       return newObject;
     }
+
+    function addLog(text) {
+      if (log.offsetHeight/parseInt(log.style.lineHeight) >= 10) {
+        log.textContent.split("\n").slice(1).join("\n");
+      }
+      log.textContent += text + "\n";
+    }
     
     class Unit {
       name = "def";
       image = "";
       health = 5;
-      armor = 0;
+      shield = 0;
       deck = [];
       energy = 1;
       
-      constructor(name, health, armor, energy, deck, image) {
+      constructor(name, health, shield, energy, deck, image) {
         this.name = name;
         this.image = image;
         this.health = health;
-        this.armor = armor;
+        this.shield = shield;
         this.deck = deck;
         this.energy = energy;
       }
 
       damageUnit(damage) {
-        if (armor > 0) {
-          if (damage > armor) {
-            armor = 0;
-            health -= damage - armor;
+        if (shield > 0) {
+          if (damage > shield) {
+            shield = 0;
+            health -= damage - shield;
           } else {
-            armor -= damage;
+            shield -= damage;
           }
         } else {
           health -= damage;
@@ -101,19 +110,21 @@
     class Deck {  
       constructor(cards) {
         this.draw = cards;
+        this.discard = [];
+        this.hand = [];
       }
 
-      drawCard() {
-        if (draw.length > 0) {
+      drawCard(amount) {
+        while (amount > 0) {
+          if (draw.length == 0) {
+            reshuffle();
+          }
           drawn = Math.random() * draw.length;
           hand.push(draw[drawn]);
           draw.splice(drawn, 1);
+          amount--;
         }
       }
-
-      //useCard(index, target) {
-        
-      //}
 
       reshuffle() {
         draw = [...discard];
@@ -125,27 +136,56 @@
       name = "test";
       desc = "";
       image = "";
-      target = "enemy";
+      target = "foe"; 
       cost = 0;
       
-      constructor(name, desc, target, cost, image) {
+      constructor(name, desc, cost, action, val, image) {
         this.name = name;
         this.desc = desc;
         this.image = image;
-        this.target = target;
-        this.cost = cost;
+        this.cost = cost; 
+        this.action = action; //dmg, shi
+        this.val = val;
+      }
+
+      findTarget(card) { //current card, expects only player use
+        searching = card;
+        addLog("use on who?");
+      }
+
+      static doAction(target, user) {
+        if (user == "player") {
+          if (searching != null && target != this) {
+            if (action == "dmg" && array != searchingA) {
+              target.damageUnit(val);
+              addLog(target.name + " took " + val.toString() + "damage");
+            } else if (action == "shi" && array == searchingA) {
+              target.shield += val;
+              addLog(target.name + " gained " + val.toString() + "shield");
+            }
+          } else {
+            addLog("no card/cancelled");
+          }
+          Update.removeB("card", searching);
+          searching = null;
+          
+          Update.stats();
+        } else if (user == "bot") {
+          target.damageUnit(val);
+          addLog(target.name + " took " + val.toString() + "damage");
+        }
       }
     }
 
-    class updateScreen {
+    class Update {
       static makeUnitB(array, index) {
         const unit = array[index];
         const newButton = document.createElement("button");
-        const name = document.createTextNode(unit.name);
+        const stats = document.createTextNode(unit.name + "\n" + unit.health + "(" + unit.shield + ")\n");
         const img = document.createElement("img");
         img.src = unit.image;
-        const stats =  document.createTextNode(unit.health);
         const tbItem = document.createElement("tb"); 
+        tbItem.id = index;
         
         newButton.appendChild(name);
         newButton.appendChild(document.createElement("br"));
@@ -153,18 +193,89 @@
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(stats);
         
-        //newButton.addEventListener("click", function() {
-          
-        //});
+        newButton.addEventListener("click", function() {
+          Card.doAction(array[index], "player");
+        });
 
         tbItem.appendChild(newButton);
 
-        if (array == currentEnemies) {
+        if (array == cEnemiesA) {
           cEnemies.appendChild(tbItem);
         } else {
           cAllies.appendChild(tbItem);
         }
         
+      }
+
+      static makeCardB(array, index) {
+        const card = array[index];
+        const newButton = document.createElement("button");
+        const stats = document.createTextNode(card.energy + "  " + card.name + "\n" + card.desc + "\n");
+        const img = document.createElement("img");
+        img.src = card.image;
+        const tbItem = document.createElement("tb"); 
+        tbItem.id = index;
+        
+        newButton.appendChild(name);
+        newButton.appendChild(document.createElement("br"));
+        newButton.appendChild(img);
+        newButton.appendChild(document.createElement("br"));
+        newButton.appendChild(stats);
+
+        newButton.addEventListener("click", function() {
+          card.findTarget(array, index);
+        });
+
+        tbItem.appendChild(newButton);
+
+        if (array == cEnemiesA) {
+          cEnemies.appendChild(tbItem);
+        } else {
+          cAllies.appendChild(tbItem);
+        }
+      }
+
+      static stats() {
+        for (let i = 0; i < cAlliesA.length; i++) {
+          var unitTB = cAllies.tBodies[i];
+          var unitB = unitTB.firstChild;
+          var unit = cAlliesA[i];
+          unitB.textContent = unit.name + "\n" + unit.health + "(" + unit.shield + ")\n";
+          unitTB.id = i;
+        }
+
+        for (let i = 0; i < cEnemiesA.length; i) {
+          var unitTB = cEnemies.tBodies[i];
+          var unitB = unitTB.firstChild;
+          var unit = cEnemiesA[i];
+          unitB.textContent = unit.name + "\n" + unit.health + "(" + unit.shield + ")\n";
+          unitTB.id = i;
+        }
+
+        var deck = cAlliesA[selectedD].deck;
+        for (let i = 0; i < deck.length; i++) {
+          var cardTB = cHand.tBodies[i]; 
+          var cardB = cardTB.firstChild;
+          var card = deck[i];
+          cardB.textContent = card.energy + "  " + card.name + "\n" + card.desc + "\n";
+          cardTB.id = i;
+        }
+      }
+
+      //static changeHands() {
+
+      //}
+
+      static removeB(user, index) {
+        if (user == "player") {
+          var table = cAllies;
+        } else if (user == "bot") {
+          var table = cEnemies;
+        } else {
+          var table = cHand;
+        }
+        
+        table.tBodies[index].remove();
       }
     }
 
@@ -173,33 +284,57 @@
         var numEnemies = 1;
 
         for (let i = 0; i < numEnemies; i++) {
-          enemy = Math.random() * enemies.length;
-          currentEnemies.push(makeCopy(enemies[enemy], "unit"));
-          updateScreen.makeUnitB(currentEnemies, i);
+          var enemy = Math.random() * enemies.length;
+          cEnemiesA.push(...enemies[enemy]);
+          Update.makeUnitB(cEnemiesA, i);
         }
+
+      }
+
+      static endTurn() {
+        for (let i = 0; i < cEnemiesA.length; i++) {
+          var enemy = cEnemiesA[i];
+          var energy = enemy.energy;
+          var canPlay = true;
+          var deck = enemy.Deck;
+          var index = 0;
+          var drawCount = 2;
+
+          deck.drawCard(drawCount);
+          
+          while (canPlay && deck.hand.length > 0) {
+            deck.hand[index];
+          }
+        }
+      }
+
+      static startTurn() {
+        deck.drawCard(drawCount);
+        
       }
     }
 
     const cards = [
-      slash = new Card("slash", "deal 5 damage", "enemy", 1, ""),
-      slime = new Card("slime", "deal 3 damage", "ally", 1, "")
+      slash = new Card("slash", "deal 5 damage", 1, "dmg", "5", ""),
+      slime = new Card("slime", "deal 3 damage", 1, "dmg", "3", ""),
+      block = new Card("block", "give 5 shield", 1, "shi", "5", "")
     ];
     const enemies = [
-      slime = new Unit("slime", 10, 0, 1, new Deck([makeCopy(cards[1], "card"), makeCopy(cards[1], "card")]), "")
+      slime = new Unit("slime", 10, 0, 1, new Deck(...cards[1], ...cards[1]), "")
       
     ];
     const allies = [
-      knight = new Unit("knight", 25, 0, 3, new Deck(makeCopy(cards[0], "card"), makeCopy(cards[0], "card")), "")
+      knight = new Unit("knight", 25, 0, 3, new Deck(...cards[0], ...cards[0]), "")
     ];
 
-    log.textContent += "click end turn button to start\n";
+    addLog("click end turn button to start");
     endTurn.addEventListener("click", function() {
-      if (currentAllies.length == 0) {
-        currentAllies.push(makeCopy(allies[0], "unit"));
-        updateScreen.makeUnitB(currentAllies, 0);
+      if (cAlliesA.length == 0) {
+        cAlliesA.push(...allies[0]);
+        Update.makeUnitB(cAlliesA, 0);
         GameManager.startFight();
       } else {
-        turn = !turn;
+        GameManager.endTurn();
       }
     });
   </script>
