@@ -101,7 +101,7 @@
           if (draw.length == 0) {
             reshuffle();
           }
-          drawn = Math.random() * draw.length;
+          drawn = Math.trunc(Math.random() * draw.length);
           hand.push(draw[drawn]);
           draw.splice(drawn, 1);
           amount--;
@@ -136,7 +136,8 @@
       }
 
       static playerAction(array, index) { //array and index of target, assumes player play
-        target = array[index];
+        var target = array[index];
+        var cAlly = cAlliesA[selectedD];
         
         if (searching != -1) {
           if (searching == -1) {
@@ -153,18 +154,19 @@
               addLog(target.name + " gained " + card.val.toString() + "shield");
             } else {
               addLog("wrong target");
+              return;
             }
           } 
-
-          cHand.splice(searching, 1); //sync with unit hand
+          
+          cAlly.energy -= card.energy;
+          cAlly.deck.hand.splice(searching, 1); 
           Update.removeB("card", cHand);
           searching = -1;
           Update.stats();
         } 
       }
 
-      botAction(array, index, deck) { //assumes bot play
-          target = array[index];
+      botAction(target, deck, index) { //assumes bot play
         
           if (action == "dmg") {
             target.damageUnit(val);
@@ -174,7 +176,7 @@
             addLog(target.name + " gained " + val.toString() + "shield");
           }
 
-          deck.hand.splice();
+          deck.hand.splice(cIndex, 1);
           Update.stats();
       }
     }
@@ -284,7 +286,7 @@
         var numEnemies = 1;
 
         for (let i = 0; i < numEnemies; i++) {
-          var enemy = Math.random() * enemies.length;
+          var enemy = Math.trunc(Math.random() * enemies.length);
           cEnemiesA.push(...enemies[enemy]);
           Update.makeUnitB(cEnemiesA, i);
         }
@@ -303,14 +305,20 @@
           deck.drawCard(drawCount);
           
           while (canPlay && deck.hand.length > 0) {
-            deck.hand[index];
+            var card = deck.hand[index];
+            if (card.action == "dmg") {
+              var target = Math.trunc(Math.random() * cAlliesA.length);
+            } else if (card.action == "shi") {
+              var target =  Math.trunc(Math.random() * cEnemiesA.length);
+            }
+            card.botAction(target, deck, index);
           }
         }
       }
 
       static startTurn() {
+        var deck = cAlliesA[selectedD].deck
         deck.drawCard(drawCount);
-        
       }
 
       //static tickStatus() tick all statuses
