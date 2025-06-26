@@ -191,11 +191,10 @@
         const tbItem = document.createElement("tb"); 
         tbItem.id = index;
         
-        newButton.appendChild(name);
+        newButton.appendChild(stats);
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(img);
         newButton.appendChild(document.createElement("br"));
-        newButton.appendChild(stats);
         
         newButton.addEventListener("click", function() {
           Card.doAction(array, index, "player");
@@ -220,11 +219,10 @@
         const tbItem = document.createElement("tb"); 
         tbItem.id = index;
         
-        newButton.appendChild(name);
+        newButton.appendChild(stats);
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(img);
         newButton.appendChild(document.createElement("br"));
-        newButton.appendChild(stats);
 
         newButton.addEventListener("click", function() {
           card.findTarget(array, index);
