@@ -192,7 +192,7 @@
         const img = document.createElement("img");
         img.src = unit.image;
         const tbItem = document.createElement("tb"); 
-        tbItem.id = index;
+        
         
         newButton.appendChild(stats);
         newButton.appendChild(document.createElement("br"));
@@ -206,8 +206,10 @@
         tbItem.appendChild(newButton);
 
         if (array == cEnemiesA) {
+          tbItem.id = "enemy" + index;
           cEnemies.appendChild(tbItem);
         } else {
+          tbItem.id = "ally" + index;
           cAllies.appendChild(tbItem);
         }
         
@@ -220,7 +222,7 @@
         const img = document.createElement("img");
         img.src = card.image;
         const tbItem = document.createElement("tb"); 
-        tbItem.id = index;
+        tbItem.id = "card" + index;
         
         newButton.appendChild(stats);
         newButton.appendChild(document.createElement("br"));
@@ -269,7 +271,7 @@
 
       //static changeHands() change viewed hand between allies
 
-      static removeB(target, index) {
+      static removeB(target, index) { //update stats after each call
         if (target == "ally") {
           var table = cAllies;
         } else if (target == "enemy") {
