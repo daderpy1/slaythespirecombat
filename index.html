@@ -314,14 +314,12 @@
 
       static startTurn() {
         var deck = cAlliesA[selectedD].deck
-        console.log(deck);
         var drawCount = 5;
+        console.log(deck.draw.type);
         
         deck.drawCard(drawCount);
         for (let i = 0; i < deck.length; i++) {
           Update.makeCardB(deck, i);
-          console.log(deck);
-          console.log(deck[i]);
         }
       }
 
