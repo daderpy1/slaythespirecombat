@@ -146,8 +146,8 @@
           } else if (target == this) {
             addLog("cancelled");
           } else {
-            var card = cAlly.deck.hand[searching];
             console.log(cAlly.deck.hand);
+            var card = cAlly.deck.hand[searching];
             if (card.action == "dmg" && array == cEnemies) {
               target.damageUnit(card.val);
               addLog(target.name + " took " + card.val.toString() + "damage");
@@ -227,7 +227,7 @@
         newButton.appendChild(document.createElement("br"));
 
         newButton.addEventListener("click", function() {
-          card.findTarget(array, index);
+          card.findTarget(index);
         });
 
         tbItem.appendChild(newButton);
