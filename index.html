@@ -79,12 +79,12 @@
         if (this.shield > 0) {
           if (damage > this.shield) {
             this.shield = 0;
-            health -= damage - this.shield;
+            this.health -= damage - this.shield;
           } else {
             this.shield -= damage;
           }
         } else {
-          health -= this.damage;
+          this.health -= this.damage;
         }
       }
     }
