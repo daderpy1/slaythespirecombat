@@ -332,11 +332,11 @@
       block = new Card("block", "give 5 shield", 1, "shi", "5", "")
     ];
     const enemies = [
-      slime = new Unit("slime", 10, 0, 1, new Deck(cards[1], cards[1]), "")
+      slime = new Unit("slime", 10, 0, 1, new Deck(new Array(cards[1], cards[1])), "")
       
     ];
     const allies = [
-      knight = new Unit("knight", 25, 0, 3, new Deck(cards[0], cards[0], cards[0], cards[2], cards[2], cards[2]), "")
+      knight = new Unit("knight", 25, 0, 3, new Deck(new Array(cards[0], cards[0], cards[0], cards[2], cards[2], cards[2])), "")
     ];
 
     addLog("click end turn button to start");
