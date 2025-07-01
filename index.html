@@ -197,7 +197,7 @@
         newButton.appendChild(document.createElement("br"));
         
         newButton.addEventListener("click", function() {
-          Card.doAction(array, index, "player");
+          Card.playerAction(array, index, "player");
         });
 
         tbItem.appendChild(newButton);
@@ -296,7 +296,7 @@
           var enemy = cEnemiesA[i];
           var energy = enemy.energy;
           var canPlay = true;
-          var deck = enemy.Deck;
+          var deck = enemy.deck;
           var index = 0;
           var drawCount = 2;
 
