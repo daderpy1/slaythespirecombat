@@ -213,7 +213,7 @@
       static makeCardB(array, index) { //array and index of deck
         const card = array[index];
         const newButton = document.createElement("button");
-        const stats = document.createTextNode(card.energy + "  " + card.name + "\n" + card.desc + "\n");
+        const stats = document.createTextNode(card.cost + "\n" + card.name + "\n" + card.desc + "\n");
         const img = document.createElement("img");
         img.src = card.image;
         const tbItem = document.createElement("tb"); 
