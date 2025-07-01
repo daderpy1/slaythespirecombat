@@ -102,7 +102,7 @@
             reshuffle();
           }
           var drawn = Math.trunc(Math.random() * this.draw.length);
-          hand.push(this.draw[drawn]);
+          this.hand.push(this.draw[drawn]);
           this.draw.splice(drawn, 1);
           amount--;
         }
