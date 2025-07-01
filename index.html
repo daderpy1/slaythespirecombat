@@ -315,11 +315,10 @@
       static startTurn() {
         var deck = cAlliesA[selectedD].deck
         var drawCount = 3;
-        console.log(deck.draw);
         
         deck.drawCard(drawCount);
-        for (let i = 0; i < deck.length; i++) {
-          Update.makeCardB(deck, i);
+        for (let i = 0; i < deck.hand.length; i++) {
+          Update.makeCardB(deck.hand, i);
         }
       }
 
