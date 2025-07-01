@@ -101,7 +101,7 @@
           if (this.draw.length == 0) {
             reshuffle();
           }
-          drawn = Math.trunc(Math.random() * this.draw.length);
+          var drawn = Math.trunc(Math.random() * this.draw.length);
           hand.push(this.draw[drawn]);
           this.draw.splice(drawn, 1);
           amount--;
