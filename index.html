@@ -210,7 +210,7 @@
         
       }
 
-      static makeCardB(array, index) {
+      static makeCardB(array, index) { //array and index of deck
         const card = array[index];
         const newButton = document.createElement("button");
         const stats = document.createTextNode(card.energy + "  " + card.name + "\n" + card.desc + "\n");
@@ -317,6 +317,9 @@
       static startTurn() {
         var deck = cAlliesA[selectedD].deck
         deck.drawCard(drawCount);
+        for (let i = 0; i < deck.length; i++) {
+          Update.makeCardB(deck, i);
+        }
       }
 
       //static tickStatus() tick all statuses
