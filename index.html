@@ -188,7 +188,7 @@
       static makeUnitB(array, index) {
         const unit = array[index];
         const newButton = document.createElement("button");
-        const stats = document.createTextNode(unit.name + "<br>" + unit.health + "(" + unit.shield + ")");
+        const stats = document.createTextNode(unit.name + "\n" + unit.health + "(" + unit.shield + ")");
         const img = document.createElement("img");
         img.src = unit.image;
         const tbItem = document.createElement("tb"); 
@@ -216,7 +216,7 @@
       static makeCardB(array, index) { //array and index of deck
         const card = array[index];
         const newButton = document.createElement("button");
-        const stats = document.createTextNode(card.cost + "energy <br>" + card.name + "<br>" + card.desc);
+        const stats = document.createTextNode(card.cost + "energy \n" + card.name + "\n" + card.desc);
         const img = document.createElement("img");
         img.src = card.image;
         const tbItem = document.createElement("tb"); 
@@ -242,7 +242,7 @@
           var unitTB = cAllies.tBodies[i];
           var unitB = unitTB.firstChild;
           var unit = cAlliesA[i];
-          unitB.textContent = unit.name + "<br>" + unit.health + "(" + unit.shield + ")";
+          unitB.textContent = unit.name + "\n" + unit.health + "(" + unit.shield + ")";
           unitTB.id = i;
         }
 
@@ -250,7 +250,7 @@
           var unitTB = cEnemies.tBodies[i];
           var unitB = unitTB.firstChild;
           var unit = cEnemiesA[i];
-          unitB.textContent = unit.name + "<br>" + unit.health + "(" + unit.shield + ")";
+          unitB.textContent = unit.name + "\n" + unit.health + "(" + unit.shield + ")";
           unitTB.id = i;
         }
 
@@ -259,7 +259,7 @@
           var cardTB = cHand.tBodies[i]; 
           var cardB = cardTB.firstChild;
           var card = deck[i];
-          cardB.textContent = card.energy + "energy <br>" + card.name + "<br>" + card.desc;
+          cardB.textContent = card.energy + "energy \n" + card.name + "\n" + card.desc;
           cardTB.id = i;
         }
       }
