@@ -216,7 +216,7 @@
       static makeCardB(array, index) { //array and index of deck
         const card = array[index];
         const newButton = document.createElement("button");
-        const stats = document.createTextNode(card.cost + "energy \n" + card.name + "\n" + card.desc);
+        const stats = document.createTextNode(card.cost + " energy \n" + card.name + "\n" + card.desc);
         const img = document.createElement("img");
         img.src = card.image;
         const tbItem = document.createElement("tb"); 
@@ -259,7 +259,7 @@
           var cardTB = cHand.tBodies[i]; 
           var cardB = cardTB.firstChild;
           var card = deck[i];
-          cardB.textContent = card.energy + "energy \n" + card.name + "\n" + card.desc;
+          cardB.textContent = card.energy + " energy \n" + card.name + "\n" + card.desc;
           cardTB.id = i;
         }
       }
