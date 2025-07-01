@@ -38,7 +38,6 @@
     var cAlliesA = [];
 
     var searching = -1;
-    var selectedD = 0;
 
     function makeCopy(object, type) {
       if (type == "unit") {
@@ -132,6 +131,7 @@
 
       findTarget(index) { //current card, expects only player use
         searching = index;
+        console.log(searching);
         addLog("use on who?");
       }
 
@@ -146,7 +146,7 @@
             addLog("cancelled");
           } else {
             var card = cAlly.deck.hand[searching];
-            console.log(card);
+            console.log(cAlly.deck.hand);
             if (card.action == "dmg" && array == cEnemies) {
               target.damageUnit(card.val);
               addLog(target.name + " took " + card.val.toString() + "damage");
