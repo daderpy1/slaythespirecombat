@@ -98,12 +98,12 @@
 
       drawCard(amount) {
         while (amount > 0) {
-          if (draw.length == 0) {
+          if (this.draw.length == 0) {
             reshuffle();
           }
-          drawn = Math.trunc(Math.random() * draw.length);
-          hand.push(draw[drawn]);
-          draw.splice(drawn, 1);
+          drawn = Math.trunc(Math.random() * this.draw.length);
+          hand.push(this.draw[drawn]);
+          this.draw.splice(drawn, 1);
           amount--;
         }
       }
