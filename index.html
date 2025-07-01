@@ -277,9 +277,8 @@
         } else if (target == "card") {
           var table = cHand;
         }
-        console.log(table.tBodies);
-        console.log(table);
-        table.tBodies[index].remove();
+
+        table.getElementById(index).remove();
       }
     }
 
