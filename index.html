@@ -76,15 +76,15 @@
       }
 
       damageUnit(damage) {
-        if (shield > 0) {
-          if (damage > shield) {
-            shield = 0;
-            health -= damage - shield;
+        if (this.shield > 0) {
+          if (damage > this.shield) {
+            this.shield = 0;
+            health -= damage - this.shield;
           } else {
-            shield -= damage;
+            this.shield -= damage;
           }
         } else {
-          health -= damage;
+          health -= this.damage;
         }
       }
     }
@@ -151,10 +151,10 @@
             console.log(array);
             if (card.action == "dmg") {
               target.damageUnit(card.val);
-              addLog(target.name + " took " + card.val.toString() + "damage");
+              addLog(target.name + " took " + card.val.toString() + " damage");
             } else if (card.action == "shi") {
               target.shield += card.val;
-              addLog(target.name + " gained " + card.val.toString() + "shield");
+              addLog(target.name + " gained " + card.val.toString() + " shield");
             } else {
               addLog("wrong target");
               return;
