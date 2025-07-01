@@ -146,8 +146,9 @@
           } else if (target == this) {
             addLog("cancelled");
           } else {
-            console.log(cAlly.deck.hand);
             var card = cAlly.deck.hand[searching];
+            console.log(card.action);
+            console.log(array);
             if (card.action == "dmg" && array == cEnemies) {
               target.damageUnit(card.val);
               addLog(target.name + " took " + card.val.toString() + "damage");
