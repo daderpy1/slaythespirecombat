@@ -146,10 +146,10 @@
             addLog("cancelled");
           } else {
             var card = cAlly.deck.hand[searching];
-            if (action == "dmg" && array == cEnemies) {
+            if (card.action == "dmg" && array == cEnemies) {
               target.damageUnit(card.val);
               addLog(target.name + " took " + card.val.toString() + "damage");
-            } else if (action == "shi" && array == cAllies) {
+            } else if (card.action == "shi" && array == cAllies) {
               target.shield += card.val;
               addLog(target.name + " gained " + card.val.toString() + "shield");
             } else {
