@@ -149,10 +149,10 @@
             var card = cAlly.deck.hand[searching];
             console.log(card.action);
             console.log(array);
-            if (card.action == "dmg" && array == cEnemies) {
+            if (card.action == "dmg") {
               target.damageUnit(card.val);
               addLog(target.name + " took " + card.val.toString() + "damage");
-            } else if (card.action == "shi" && array == cAllies) {
+            } else if (card.action == "shi") {
               target.shield += card.val;
               addLog(target.name + " gained " + card.val.toString() + "shield");
             } else {
@@ -188,7 +188,7 @@
       static makeUnitB(array, index) {
         const unit = array[index];
         const newButton = document.createElement("button");
-        const stats = document.createTextNode(unit.name + "\n" + unit.health + "(" + unit.shield + ")\n");
+        const stats = document.createTextNode(unit.name + "<br>" + unit.health + "(" + unit.shield + ")");
         const img = document.createElement("img");
         img.src = unit.image;
         const tbItem = document.createElement("tb"); 
@@ -216,7 +216,7 @@
       static makeCardB(array, index) { //array and index of deck
         const card = array[index];
         const newButton = document.createElement("button");
-        const stats = document.createTextNode(card.cost + "\n" + card.name + "\n" + card.desc + "\n");
+        const stats = document.createTextNode(card.cost + "energy <br>" + card.name + "<br>" + card.desc);
         const img = document.createElement("img");
         img.src = card.image;
         const tbItem = document.createElement("tb"); 
@@ -242,7 +242,7 @@
           var unitTB = cAllies.tBodies[i];
           var unitB = unitTB.firstChild;
           var unit = cAlliesA[i];
-          unitB.textContent = unit.name + "\n" + unit.health + "(" + unit.shield + ")\n";
+          unitB.textContent = unit.name + "<br>" + unit.health + "(" + unit.shield + ")";
           unitTB.id = i;
         }
 
@@ -250,7 +250,7 @@
           var unitTB = cEnemies.tBodies[i];
           var unitB = unitTB.firstChild;
           var unit = cEnemiesA[i];
-          unitB.textContent = unit.name + "\n" + unit.health + "(" + unit.shield + ")\n";
+          unitB.textContent = unit.name + "<br>" + unit.health + "(" + unit.shield + ")";
           unitTB.id = i;
         }
 
@@ -259,7 +259,7 @@
           var cardTB = cHand.tBodies[i]; 
           var cardB = cardTB.firstChild;
           var card = deck[i];
-          cardB.textContent = card.energy + "  " + card.name + "\n" + card.desc + "\n";
+          cardB.textContent = card.energy + "energy <br>" + card.name + "<br>" + card.desc;
           cardTB.id = i;
         }
       }
