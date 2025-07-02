@@ -72,7 +72,8 @@
     }
 
     function cardListener(event) {
-      card.findTarget(tempIndex);
+      tempArray[tempIndex].findTarget(tempIndex);
+      tempArray = [];
       tempIndex = -1;
     }
     
@@ -230,6 +231,7 @@
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(img);
 
+        tempArray = array;
         tempIndex = index;
         newButton.addEventListener("click", cardListener);
 
