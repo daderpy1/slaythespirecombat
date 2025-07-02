@@ -189,10 +189,12 @@
         newButton.appendChild(stats);
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(img);
+
+        newButton.onclick = Card.playerAction(array, tbItem.id, "player");
         
-        newButton.addEventListener("click", function() {
+        /*newButton.addEventListener("click", function() {
           Card.playerAction(array, tbItem.id, "player");
-        });
+        });*/
 
         tbItem.appendChild(newButton);
 
@@ -217,9 +219,11 @@
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(img);
 
-        newButton.addEventListener("click", function() {
+        newButton.onclick = card.findTarget(tbItem.id);
+
+        /*newButton.addEventListener("click", function() {
           card.findTarget(tbItem.id);
-        });
+        });*/
 
         tbItem.appendChild(newButton);
         cHand.appendChild(tbItem);
@@ -234,12 +238,12 @@
           var unit = cAlliesA[i];
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ") | " + "energy: " + unit.energy;
           unitTB.id = i;
-          unitB.removeEventListener("click", function() {
-            Card.playerAction(array, tbItem.id, "player");
-          });
-          unitB.addEventListener("click", function() {
+
+          unitB.onclick = Card.playerAction(cAlliesA, i, "player");
+          
+          /*unitB.addEventListener("click", function() {
             Card.playerAction(i, "player");
-          });
+          });*/
         }
 
         for (let i = 0; i < cEnemiesA.length; i++) {
@@ -249,6 +253,8 @@
           console.log("updated health:"+cEnemies);
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ") | " + "energy: " + unit.energy;
           unitTB.id = i;
+
+          unitB.onclick = Card.playerAction(cEnemiesA, i, "player");
         }
         
         var hand = cAlliesA[selectedD].deck.hand;
@@ -259,12 +265,13 @@
           cardB.textContent = card.cost + " energy | " + card.name + " | " + card.desc;
           cardTB.id = i;
           console.log("id:"+i);
-          cardB.removeEventListener("click", function() {
-            card.findTarget(tbItem.id);
-          }, true);
-          cardB.addEventListener("click", function() {
+
+          unitB.onclick = card.findTarget(i);
+          
+          /*cardB.addEventListener("click", function() {
             card.findTarget(i);
-          });
+          });*/
+
         }
       }
 
