@@ -138,7 +138,7 @@
         addLog("use on who?");
       }
 
-      static playerAction(index) { //array and index of target, assumes player play
+      static playerAction(array, index) { //array and index of target, assumes player play
         var target = array[index];
         var cAlly = cAlliesA[selectedD];
         
@@ -202,7 +202,7 @@
         newButton.appendChild(document.createElement("br"));
         
         newButton.addEventListener("click", function() {
-          Card.playerAction(tbItem.id, "player");
+          Card.playerAction(array, tbItem.id, "player");
         });
 
         tbItem.appendChild(newButton);
