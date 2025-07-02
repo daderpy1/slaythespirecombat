@@ -66,15 +66,15 @@
     var tempIndex = -1;
 
     function unitListener() {
-      console.log(tempArray);
-      console.log(tempIndex);
-      Card.playerAction(tempArray, tempIndex);
+      var array = tempArray;
+      var index = tempIndex;
+      Card.playerAction(array, index);
     }
 
     function cardListener() {
-      console.log(tempArray);
-      console.log(tempIndex);
-      tempArray[tempIndex].findTarget(tempIndex);
+      var array = tempArray;
+      var index = tempIndex;
+      array[index].findTarget(index);
     }
     
     class Unit {
