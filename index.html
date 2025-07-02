@@ -194,7 +194,7 @@
         const img = document.createElement("img");
         img.src = unit.image;
         const tbItem = document.createElement("tb"); 
-        
+        tbItem.id = index;
         
         newButton.appendChild(stats);
         newButton.appendChild(document.createElement("br"));
@@ -202,16 +202,14 @@
         newButton.appendChild(document.createElement("br"));
         
         newButton.addEventListener("click", function() {
-          Card.playerAction(array, index, "player");
+          Card.playerAction(array, tbItem.id, "player");
         });
 
         tbItem.appendChild(newButton);
 
         if (array == cEnemiesA) {
-          tbItem.id = "enemy" + index;
           cEnemies.appendChild(tbItem);
         } else {
-          tbItem.id = "ally" + index;
           cAllies.appendChild(tbItem);
         }
         
@@ -224,7 +222,7 @@
         const img = document.createElement("img");
         img.src = card.image;
         const tbItem = document.createElement("tb"); 
-        tbItem.id = "card" + index;
+        tbItem.id = index;
         
         newButton.appendChild(stats);
         newButton.appendChild(document.createElement("br"));
@@ -232,7 +230,8 @@
         newButton.appendChild(document.createElement("br"));
 
         newButton.addEventListener("click", function() {
-          card.findTarget(index);
+          console.log(tbItem.id);
+          card.findTarget(tbItem.id);
         });
 
         tbItem.appendChild(newButton);
@@ -247,7 +246,7 @@
           var unitB = unitTB.children[i];
           var unit = cAlliesA[i];
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ")";
-          unitTB.id = "ally" + i;
+          unitTB.id = i;
         }
 
         for (let i = 0; i < cEnemiesA.length; i++) {
@@ -255,7 +254,7 @@
           var unitB = unitTB.children[i];
           var unit = cEnemiesA[i];
           unitB.textContent = unit.name + "|" + unit.health + " (" + unit.shield + ")";
-          unitTB.id = "enemy" + i;
+          unitTB.id = i;
           console.log(cEnemiesA);
         }
 
@@ -265,7 +264,7 @@
           var cardB = cardTB.children[i];
           var card = deck[i];
           cardB.textContent = card.energy + " energy | " + card.name + " | " + card.desc;
-          cardTB.id = "card" + i;
+          cardTB.id = i;
         }
       }
 
