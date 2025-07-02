@@ -163,11 +163,11 @@
           var card = deck.hand[index];
           console.log(deck.hand);
           if (card.action == "dmg") {
-            target.damageUnit(val, index);
-            addLog(target.name + " took " + val.toString() + "damage");
+            target.damageUnit(card.val, index);
+            addLog(target.name + " took " + card.val + "damage");
           } else if (card.action == "shi") {
-            target.shield += val;
-            addLog(target.name + " gained " + val.toString() + "shield");
+            target.shield += card.val;
+            addLog(target.name + " gained " + card.val + "shield");
           }
 
           deck.hand.splice(cIndex, 1);
