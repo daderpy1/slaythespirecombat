@@ -150,8 +150,6 @@
             addLog("cancelled");
           } else {
             var card = cAlly.deck.hand[searching];
-            console.log(card.action);
-            console.log(array);
             if (card.action == "dmg") {
               target.damageUnit(card.val, index);
               addLog(target.name + " took " + card.val.toString() + " damage");
@@ -168,6 +166,7 @@
           cAlly.deck.hand.splice(searching, 1); 
           Update.removeB("card", index);
           searching = -1;
+          console.log(array);
         } 
       }
 
@@ -190,7 +189,7 @@
       static makeUnitB(array, index) {
         const unit = array[index];
         const newButton = document.createElement("button");
-        const stats = document.createTextNode(unit.name + "\n" + unit.health + "(" + unit.shield + ")");
+        const stats = document.createTextNode(unit.name + " | " + unit.health + " (" + unit.shield + ")");
         const img = document.createElement("img");
         img.src = unit.image;
         const tbItem = document.createElement("tb"); 
@@ -220,7 +219,7 @@
       static makeCardB(array, index) { //array and index of deck
         const card = array[index];
         const newButton = document.createElement("button");
-        const stats = document.createTextNode(card.cost + " energy \n" + card.name + "\n" + card.desc);
+        const stats = document.createTextNode(card.cost + " energy | " + card.name + " | " + card.desc);
         const img = document.createElement("img");
         img.src = card.image;
         const tbItem = document.createElement("tb"); 
@@ -246,7 +245,7 @@
           var unitTB = cAllies.children[0]
           var unitB = unitTB.children[i];
           var unit = cAlliesA[i];
-          unitB.textContent = unit.name + "\n" + unit.health + "(" + unit.shield + ")";
+          unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ")";
           unitTB.id = "ally" + i;
           console.log(unit.health);
         }
@@ -255,7 +254,7 @@
           var unitTB = cEnemies.children[0].children[i];
           var unitB = unitTB.children[i];
           var unit = cEnemiesA[i];
-          unitB.textContent = unit.name + "\n" + unit.health + "(" + unit.shield + ")";
+          unitB.textContent = unit.name + "|" + unit.health + " (" + unit.shield + ")";
           unitTB.id = "enemy" + i;
           console.log(unit.health);
         }
@@ -265,7 +264,7 @@
           var cardTB = cHand.children[0].children[i];
           var cardB = cardTB.children[i];
           var card = deck[i];
-          cardB.textContent = card.energy + " energy \n" + card.name + "\n" + card.desc;
+          cardB.textContent = card.energy + " energy | " + card.name + " | " + card.desc;
           cardTB.id = "card" + i;
         }
       }
