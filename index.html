@@ -192,7 +192,6 @@
         newButton.appendChild(stats);
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(img);
-        newButton.appendChild(document.createElement("br"));
         
         newButton.addEventListener("click", function() {
           Card.playerAction(array, tbItem.id, "player");
@@ -220,7 +219,6 @@
         newButton.appendChild(stats);
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(img);
-        newButton.appendChild(document.createElement("br"));
 
         newButton.addEventListener("click", function() {
           card.findTarget(tbItem.id);
@@ -251,7 +249,7 @@
           var unitTB = cEnemies.children[i];
           var unitB = unitTB.children[0];
           var unit = cEnemiesA[i];
-          console.log("updated health:"+unit.health);
+          console.log("updated health:"+unit);
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ") | " + "energy: " + unit.energy;
           unitTB.id = i;
         }
