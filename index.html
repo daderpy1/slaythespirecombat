@@ -52,8 +52,7 @@
 
     function addLog(text) {
       var lines = log.children;
-      var newLine = document.createElement("p");
-      newLine.textcontent = text;
+      var newLine = document.createTextNode(text);
       log.appendChild(newLine);
       
       if (lines > 10) {
