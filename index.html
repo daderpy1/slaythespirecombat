@@ -86,9 +86,9 @@
         } else {
           this.health -= this.damage;
         }
-      }
-      if (this.health <= 0) {
-        Update.removeB("enemy", index);
+        if (this.health <= 0) {
+          Update.removeB("enemy", index);
+        }
       }
     }
 
