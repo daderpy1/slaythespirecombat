@@ -251,7 +251,7 @@
           unitB.removeEventListener("click", unitListener);
           tempArray = cAlliesA;
           tempIndex = i;
-          newButton.addEventListener("click", unitListener);
+          unitB.addEventListener("click", unitListener);
         }
 
         for (let i = 0; i < cEnemiesA.length; i++) {
@@ -265,7 +265,7 @@
           unitB.removeEventListener("click", unitListener);
           tempArray = cEnemiesA;
           tempIndex = i;
-          newButton.addEventListener("click", unitListener);
+          unitB.addEventListener("click", unitListener);
         }
         
         var hand = cAlliesA[selectedD].deck.hand;
