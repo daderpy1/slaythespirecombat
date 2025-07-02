@@ -61,6 +61,20 @@
         lines[0].remove();
       }
     }
+
+    var tempArray = [];
+    var tempIndex = -1;
+
+    function unitListener(event) {
+      Card.playerAction(tempArray, tempIndex);
+      tempArray = [];
+      tempIndex = -1;
+    }
+
+    function cardListener(event) {
+      card.findTarget(tempIndex);
+      tempIndex = -1;
+    }
     
     class Unit {
       constructor(name, health, shield, energy, deck, image) {
@@ -189,11 +203,9 @@
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(img);
 
-        function listener(event) {
-          Card.playerAction(array, tbItem.id, "player");
-        }
-        
-        newButton.addEventListener("click", listener);
+        tempArray = array;
+        tempIndex = index;
+        newButton.addEventListener("click", unitListener);
 
         tbItem.appendChild(newButton);
 
@@ -218,11 +230,8 @@
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(img);
 
-        function listener(event) {
-          card.findTarget(tbItem.id);
-        }
-
-        newButton.addEventListener("click", listener);
+        tempIndex = index;
+        newButton.addEventListener("click", cardListener);
 
         tbItem.appendChild(newButton);
         cHand.appendChild(tbItem);
@@ -238,12 +247,10 @@
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ") | " + "energy: " + unit.energy;
           unitTB.id = i;
 
-          function listener(event) {
-            Card.playerAction(cAlliesA, i, "player");
-          }
-
-          unitB.removeEventListener("click", listener);
-          unitB.addEventListener("click", listener);
+          unitB.removeEventListener("click", unitListener);
+          tempArray = cAlliesA;
+          tempIndex = i;
+          newButton.addEventListener("click", unitListener);
         }
 
         for (let i = 0; i < cEnemiesA.length; i++) {
@@ -254,12 +261,10 @@
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ") | " + "energy: " + unit.energy;
           unitTB.id = i;
 
-          function listener(event) {
-            Card.playerAction(cAlliesA, i, "player");
-          }
-
-          unitB.removeEventListener("click", listener);
-          unitB.addEventListener("click", listener);
+          unitB.removeEventListener("click", unitListener);
+          tempArray = cEnemiesA;
+          tempIndex = i;
+          newButton.addEventListener("click", unitListener);
         }
         
         var hand = cAlliesA[selectedD].deck.hand;
@@ -270,13 +275,9 @@
           cardB.textContent = card.cost + " energy | " + card.name + " | " + card.desc;
           cardTB.id = i;
 
-          function listener(event) {
-            card.findTarget(i);
-          }
-
-          cardB.removeEventListener("click", listener);          
-          cardB.addEventListener("click", listener);
-
+          cardB.removeEventListener("click", cardListener);          
+          tempIndex = i;
+          cardB.addEventListener("click", cardListener);
         }
       }
 
