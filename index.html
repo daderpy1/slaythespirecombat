@@ -234,8 +234,8 @@
 
       static stats() {
         for (let i = 0; i < cAlliesA.length; i++) {
-          var unitTB = cAllies.children[0]
-          var unitB = unitTB.children[i];
+          var unitTB = cAllies.children[i]
+          var unitB = unitTB.children[0];
           var unit = cAlliesA[i];
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ") | " + "energy: " + unit.energy;
           unitTB.id = i;
@@ -248,8 +248,8 @@
         }
 
         for (let i = 0; i < cEnemiesA.length; i++) {
-          var unitTB = cEnemies.children[0].children[i];
-          var unitB = unitTB.children[i];
+          var unitTB = cEnemies.children[i];
+          var unitB = unitTB.children[0];
           var unit = cEnemiesA[i];
           console.log("updated health:"+unit.health);
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ") | " + "energy: " + unit.energy;
@@ -258,8 +258,8 @@
 
         var deck = cAlliesA[selectedD].deck;
         for (let i = 0; i < deck.length; i++) {
-          var cardTB = cHand.children[0].children[i];
-          var cardB = cardTB.children[i];
+          var cardTB = cHand.children[i];
+          var cardB = cardTB.children[0];
           var card = deck[i];
           cardB.textContent = card.energy + " energy | " + card.name + " | " + card.desc;
           cardTB.id = i;
