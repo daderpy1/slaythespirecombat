@@ -256,7 +256,7 @@
           var cardTB = cHand.children[i];
           var cardB = cardTB.children[0];
           var card = hand[i];
-          cardB.textContent = card.energy + " energy | " + card.name + " | " + card.desc;
+          cardB.textContent = card.cost + " energy | " + card.name + " | " + card.desc;
           cardTB.id = i;
           console.log("id:"+i);
           cardB.removeEventListener("click", function() {
