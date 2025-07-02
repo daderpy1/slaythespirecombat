@@ -281,9 +281,9 @@
         }
 
         console.log(table);
-        console.log(table.getElementsByTagName("tbody"));
+        console.log(table.children);
 
-        table.getElementsByTagName("tb")[index].remove();
+        table.children[index].remove();
         Update.stats();
       }
     }
