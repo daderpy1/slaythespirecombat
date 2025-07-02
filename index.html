@@ -162,7 +162,7 @@
 
       botAction(target, deck, index) { //assumes bot play
           var card = deck[index];
-        
+          console.log(deck);
           if (card.action == "dmg") {
             target.damageUnit(val, index);
             addLog(target.name + " took " + val.toString() + "damage");
