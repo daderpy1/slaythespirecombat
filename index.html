@@ -280,6 +280,9 @@
           var table = cHand;
         }
 
+        console.log(table);
+        console.log(table.getElementsByTagName("tbody"));
+
         table.getElementsByTagName("tbody")[index].remove();
         Update.stats();
       }
