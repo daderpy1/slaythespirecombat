@@ -251,7 +251,8 @@
           var unitTB = cEnemies.children[0].children[i];
           var unitB = unitTB.children[i];
           var unit = cEnemiesA[i];
-          unitB.textContent = unit.name + "|" + unit.health + " (" + unit.shield + ") | " + "energy: " + unit.energy;
+          console.log("updated health:"+unit.health);
+          unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ") | " + "energy: " + unit.energy;
           unitTB.id = i;
         }
 
