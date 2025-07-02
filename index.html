@@ -251,11 +251,11 @@
           unitTB.id = i;
         }
         
-        var deck = cAlliesA[selectedD].deck;
-        for (let i = 0; i < deck.length; i++) {
+        var hand = cAlliesA[selectedD].deck.hand;
+        for (let i = 0; i < hand.length; i++) {
           var cardTB = cHand.children[i];
           var cardB = cardTB.children[0];
-          var card = deck.hand[i];
+          var card = hand[i];
           cardB.textContent = card.energy + " energy | " + card.name + " | " + card.desc;
           cardTB.id = i;
           console.log("id:"+i);
