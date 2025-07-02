@@ -259,7 +259,7 @@
           cardB.textContent = card.energy + " energy | " + card.name + " | " + card.desc;
           cardTB.id = i;
           console.log("id:"+i);
-          newButton.removeEventListener("click", function() {
+          cardB.removeEventListener("click", function() {
             card.findTarget(tbItem.id);
           }, true);
           cardB.addEventListener("click", function() {
