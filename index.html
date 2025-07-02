@@ -150,6 +150,7 @@
           } else if (target == this) {
             addLog("cancelled");
           } else {
+            console.log(cHand);
             var card = cAlly.deck.hand[searching];
             if (card.action == "dmg") {
               target.damageUnit(card.val, index);
@@ -167,7 +168,6 @@
           cAlly.deck.hand.splice(searching, 1); 
           Update.removeB("card", index);
           searching = -1;
-          console.log(array);
         } 
       }
 
