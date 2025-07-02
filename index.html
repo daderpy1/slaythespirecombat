@@ -51,14 +51,14 @@
     }
 
     function addLog(text) {
-      var lines = log.children;
       var newLine = document.createTextNode(text);
       var br = document.createElement("br");
       log.appendChild(newLine);
       log.appendChild(br);
       
-      if (lines > 20) {
-        lines[0].remove();
+      if (log.children > 20) {
+        log.children[0].remove();
+        log.children[0].remove();
       }
     }
 
@@ -67,14 +67,10 @@
 
     function unitListener(event) {
       Card.playerAction(tempArray, tempIndex);
-      tempArray = [];
-      tempIndex = -1;
     }
 
     function cardListener(event) {
       tempArray[tempIndex].findTarget(tempIndex);
-      tempArray = [];
-      tempIndex = -1;
     }
     
     class Unit {
