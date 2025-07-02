@@ -61,13 +61,6 @@
     }
     
     class Unit {
-      name = "def";
-      image = "";
-      health = 5;
-      shield = 0;
-      deck = [];
-      energy = 1;
-      
       constructor(name, health, shield, energy, deck, image) {
         this.name = name;
         this.image = image;
@@ -119,13 +112,7 @@
       }
     }
 
-    class Card {
-      name = "test";
-      desc = "";
-      image = "";
-      target = "foe"; 
-      cost = 0;
-      
+    class Card {   
       constructor(name, desc, cost, action, val, image) {
         this.name = name;
         this.desc = desc;
@@ -162,8 +149,9 @@
             return;
           }
           
-          
+          console.log("energy:"+cAlly.energy);
           cAlly.energy -= card.energy;
+          console.log("energy:"+cAlly.energy);
           cAlly.deck.hand.splice(searching, 1); 
           Update.removeB("card", index);
           searching = -1;
