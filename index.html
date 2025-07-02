@@ -145,25 +145,24 @@
         var target = array[index];
         var cAlly = cAlliesA[selectedD];
         
-        if (searching != -1) {
-          if (searching == -1) {
-            addLog("no card to play"); 
-          } else if (target == this) {
-            addLog("cancelled");
+        if (searching == -1 || searching > cAlly.deck.hand.length-1) {
+          addLog("no card to play"); 
+        } else if (target == this) {
+          addLog("cancelled");
+        } else {
+          var card = cAlly.deck.hand[searching];
+          if (card.action == "dmg") {
+            target.damageUnit(card.val, index);
+            addLog(target.name + " took " + card.val.toString() + " damage");
+          } else if (card.action == "shi") {
+            target.shield += card.val;
+            console.log(target.shield);
+            addLog(target.name + " gained " + card.val.toString() + " shield");
           } else {
-            var card = cAlly.deck.hand[searching];
-            if (card.action == "dmg") {
-              target.damageUnit(card.val, index);
-              addLog(target.name + " took " + card.val.toString() + " damage");
-            } else if (card.action == "shi") {
-              target.shield += card.val;
-              console.log(target.shield);
-              addLog(target.name + " gained " + card.val.toString() + " shield");
-            } else {
-              addLog("wrong target");
-              return;
-            }
-          } 
+            addLog("wrong target");
+            return;
+          }
+          
           
           cAlly.energy -= card.energy;
           cAlly.deck.hand.splice(searching, 1); 
