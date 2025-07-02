@@ -65,13 +65,14 @@
     var tempArray = [];
     var tempIndex = -1;
 
-    function unitListener(event) {
+    function unitListener() {
       console.log(tempArray);
       console.log(tempIndex);
       Card.playerAction(tempArray, tempIndex);
     }
 
-    function cardListener(event) {
+    function cardListener() {
+      console.log(tempArray);
       console.log(tempIndex);
       tempArray[tempIndex].findTarget(tempIndex);
     }
