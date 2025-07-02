@@ -190,7 +190,7 @@
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(img);
 
-        newButton.onmousedown  = Card.playerAction(array, tbItem.id, "player");
+        newButton.addEventListener("click", Card.playerAction(array, tbItem.id, "player"));
         
         /*newButton.addEventListener("click", function() {
           Card.playerAction(array, tbItem.id, "player");
@@ -219,7 +219,7 @@
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(img);
 
-        newButton.onmousedown  = card.findTarget(tbItem.id);
+        newButton.addEventListener("click", card.findTarget(tbItem.id));
 
         /*newButton.addEventListener("click", function() {
           card.findTarget(tbItem.id);
@@ -239,7 +239,8 @@
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ") | " + "energy: " + unit.energy;
           unitTB.id = i;
 
-          unitB.onmousedown  = Card.playerAction(cAlliesA, i, "player");
+          unitB.removeEventListener("click", Card.playerAction());
+          unitB.addEventListener("click", Card.playerAction(cAlliesA, i, "player"));
           
           /*unitB.addEventListener("click", function() {
             Card.playerAction(i, "player");
@@ -254,7 +255,8 @@
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ") | " + "energy: " + unit.energy;
           unitTB.id = i;
 
-          unitB.onmousedown  = Card.playerAction(cEnemiesA, i, "player");
+          unitB.removeEventListener("click", Card.playerAction());
+          unitB.addEventListener("click", Card.playerAction(cEnemiesA, i, "player"));
         }
         
         var hand = cAlliesA[selectedD].deck.hand;
@@ -266,7 +268,8 @@
           cardTB.id = i;
           console.log("id:"+i);
 
-          unitB.onmousedown  = card.findTarget(i);
+          cardB.removeEventListener("click", card.findTarget());
+          cardB.addEventListener("click", card.findTarget(i));
           
           /*cardB.addEventListener("click", function() {
             card.findTarget(i);
