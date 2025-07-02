@@ -66,10 +66,13 @@
     var tempIndex = -1;
 
     function unitListener(event) {
+      console.log(tempArray);
+      console.log(tempIndex);
       Card.playerAction(tempArray, tempIndex);
     }
 
     function cardListener(event) {
+      console.log(tempIndex);
       tempArray[tempIndex].findTarget(tempIndex);
     }
     
@@ -363,7 +366,6 @@
       if (cAlliesA.length == 0) {
         cAlliesA.push(allies[0]);
         Update.makeUnitB(cAlliesA, 0);
-        console.log("hi");
         GameManager.startFight();
       } else {
         GameManager.endTurn();
