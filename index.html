@@ -75,7 +75,7 @@
         this.energy = energy;
       }
 
-      damageUnit(damage) {
+      damageUnit(damage, index) {
         if (this.shield > 0) {
           if (damage > this.shield) {
             this.shield = 0;
@@ -86,6 +86,9 @@
         } else {
           this.health -= this.damage;
         }
+      }
+      if (this.health <= 0) {
+        Update.removeB("enemy", index);
       }
     }
 
@@ -150,7 +153,7 @@
             console.log(card.action);
             console.log(array);
             if (card.action == "dmg") {
-              target.damageUnit(card.val);
+              target.damageUnit(card.val, index);
               addLog(target.name + " took " + card.val.toString() + " damage");
             } else if (card.action == "shi") {
               target.shield += card.val;
@@ -171,7 +174,7 @@
       botAction(target, deck, index) { //assumes bot play
         
           if (action == "dmg") {
-            target.damageUnit(val);
+            target.damageUnit(val, index);
             addLog(target.name + " took " + val.toString() + "damage");
           } else if (action == "shi") {
             target.shield += val;
@@ -264,7 +267,6 @@
           var card = deck[i];
           cardB.textContent = card.energy + " energy \n" + card.name + "\n" + card.desc;
           cardTB.id = "card" + i;
-          console.log(unit.health);
         }
       }
 
