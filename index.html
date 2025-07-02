@@ -236,7 +236,7 @@
           unitTB.id = i;
           unitB.removeEventListener("click", function() {
             Card.playerAction(array, tbItem.id, "player");
-          }, true);
+          });
           unitB.addEventListener("click", function() {
             Card.playerAction(i, "player");
           });
