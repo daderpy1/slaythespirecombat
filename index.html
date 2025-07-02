@@ -246,8 +246,8 @@
           var unit = cAlliesA[i];
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ")";
           unitTB.id = i;
-          newButton.addEventListener("click", function() {
-            Card.playerAction(array, tbItem.id, "player");
+          unitB.addEventListener("click", function() {
+            Card.playerAction(array, i, "player");
           });
         }
 
@@ -266,8 +266,8 @@
           var card = deck[i];
           cardB.textContent = card.energy + " energy | " + card.name + " | " + card.desc;
           cardTB.id = i;
-          newButton.addEventListener("click", function() {
-            card.findTarget(tbItem.id);
+          cardB.addEventListener("click", function() {
+            card.findTarget(i);
           });
         }
       }
