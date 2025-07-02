@@ -138,7 +138,7 @@
         addLog("use on who?");
       }
 
-      static playerAction(array, index) { //array and index of target, assumes player play
+      static playerAction(index) { //array and index of target, assumes player play
         var target = array[index];
         var cAlly = cAlliesA[selectedD];
         
@@ -190,7 +190,7 @@
       static makeUnitB(array, index) {
         const unit = array[index];
         const newButton = document.createElement("button");
-        const stats = document.createTextNode(unit.name + " | " + unit.health + " (" + unit.shield + ")");
+        const stats = document.createTextNode(unit.name + " | " + unit.health + " (" + unit.shield + ") |" + "energy: " + unit.energy);
         const img = document.createElement("img");
         img.src = unit.image;
         const tbItem = document.createElement("tb"); 
@@ -202,7 +202,7 @@
         newButton.appendChild(document.createElement("br"));
         
         newButton.addEventListener("click", function() {
-          Card.playerAction(array, tbItem.id, "player");
+          Card.playerAction(tbItem.id, "player");
         });
 
         tbItem.appendChild(newButton);
@@ -244,10 +244,10 @@
           var unitTB = cAllies.children[0]
           var unitB = unitTB.children[i];
           var unit = cAlliesA[i];
-          unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ")";
+          unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ") |" + "energy: " + unit.energy;
           unitTB.id = i;
           unitB.addEventListener("click", function() {
-            Card.playerAction(array, i, "player");
+            Card.playerAction(i, "player");
           });
         }
 
@@ -255,7 +255,7 @@
           var unitTB = cEnemies.children[0].children[i];
           var unitB = unitTB.children[i];
           var unit = cEnemiesA[i];
-          unitB.textContent = unit.name + "|" + unit.health + " (" + unit.shield + ")";
+          unitB.textContent = unit.name + "|" + unit.health + " (" + unit.shield + ") |" + "energy: " + unit.energy;
           unitTB.id = i;
         }
 
@@ -338,9 +338,9 @@
     }
 
     const cards = [
-      slash = new Card("slash", "deal 5 damage", 1, "dmg", "5", ""),
-      slime = new Card("slime", "deal 3 damage", 1, "dmg", "3", ""),
-      block = new Card("block", "give 5 shield", 1, "shi", "5", "")
+      slash = new Card("slash", "deal 5 damage", 1, "dmg", 5, ""),
+      slime = new Card("slime", "deal 3 damage", 1, "dmg", 3, ""),
+      block = new Card("block", "give 5 shield", 1, "shi", 5, "")
     ];
     const enemies = [
       slime = new Unit("slime", 10, 0, 1, new Deck(new Array(cards[1], cards[1])), "")
