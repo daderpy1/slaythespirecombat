@@ -239,7 +239,7 @@
           unitTB.id = i;
           unitB.removeEventListener("click", function() {
             Card.playerAction(array, tbItem.id, "player");
-          });
+          }, true);
           unitB.addEventListener("click", function() {
             Card.playerAction(i, "player");
           });
@@ -264,7 +264,7 @@
           console.log("id:"+i);
           newButton.removeEventListener("click", function() {
             card.findTarget(tbItem.id);
-          });
+          }, true);
           cardB.addEventListener("click", function() {
             card.findTarget(i);
           });
