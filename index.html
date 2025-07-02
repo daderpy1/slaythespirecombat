@@ -230,7 +230,6 @@
         newButton.appendChild(document.createElement("br"));
 
         newButton.addEventListener("click", function() {
-          console.log(tbItem.id);
           card.findTarget(tbItem.id);
         });
 
@@ -247,6 +246,9 @@
           var unit = cAlliesA[i];
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ")";
           unitTB.id = i;
+          newButton.addEventListener("click", function() {
+            Card.playerAction(array, tbItem.id, "player");
+          });
         }
 
         for (let i = 0; i < cEnemiesA.length; i++) {
@@ -255,7 +257,6 @@
           var unit = cEnemiesA[i];
           unitB.textContent = unit.name + "|" + unit.health + " (" + unit.shield + ")";
           unitTB.id = i;
-          console.log(cEnemiesA);
         }
 
         var deck = cAlliesA[selectedD].deck;
@@ -265,6 +266,9 @@
           var card = deck[i];
           cardB.textContent = card.energy + " energy | " + card.name + " | " + card.desc;
           cardTB.id = i;
+          newButton.addEventListener("click", function() {
+            card.findTarget(tbItem.id);
+          });
         }
       }
 
