@@ -151,9 +151,8 @@
             return;
           }
           
-          console.log("energy:"+cAlly.energy);
+          console.log("energy:"+card.energy);
           cAlly.energy -= card.energy;
-          console.log("energy:"+cAlly.energy);
           cAlly.deck.hand.splice(searching, 1); 
           Update.removeB("card", index);
           searching = -1;
