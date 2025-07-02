@@ -53,9 +53,11 @@
     function addLog(text) {
       var lines = log.children;
       var newLine = document.createTextNode(text);
+      var br = document.createElement("br");
       log.appendChild(newLine);
+      log.appendChild(br);
       
-      if (lines > 10) {
+      if (lines > 20) {
         lines[0].remove();
       }
     }
