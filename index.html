@@ -73,6 +73,8 @@
       }
 
       damageUnit(damage, index) {
+        console.log("damage:"+damage);
+        console.log("health:"+this.health);
         if (this.shield > 0) {
           if (damage > this.shield) {
             this.shield = 0;
