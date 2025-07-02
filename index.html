@@ -245,7 +245,7 @@
           var unitB = unitTB.firstChild;
           var unit = cAlliesA[i];
           unitB.textContent = unit.name + "\n" + unit.health + "(" + unit.shield + ")";
-          unitTB.id = i;
+          unitTB.id = "ally" + i;
           console.log("updated");
         }
 
@@ -254,7 +254,7 @@
           var unitB = unitTB.firstChild;
           var unit = cEnemiesA[i];
           unitB.textContent = unit.name + "\n" + unit.health + "(" + unit.shield + ")";
-          unitTB.id = i;
+          unitTB.id = "enemy" + i;
           console.log("updated");
         }
 
@@ -264,14 +264,14 @@
           var cardB = cardTB.firstChild;
           var card = deck[i];
           cardB.textContent = card.energy + " energy \n" + card.name + "\n" + card.desc;
-          cardTB.id = i;
+          cardTB.id = "card" + i;
           console.log("updated");
         }
       }
 
       //static changeHands() change viewed hand between allies
 
-      static removeB(target, index) { //update stats after each call
+      static removeB(target, index) { 
         if (target == "ally") {
           var table = cAllies;
         } else if (target == "enemy") {
@@ -280,7 +280,8 @@
           var table = cHand;
         }
 
-        table.getElementById(index).remove();
+        table.getElementsByTagName("tbody")[index].remove();
+        Update.stats();
       }
     }
 
