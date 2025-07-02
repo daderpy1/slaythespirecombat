@@ -188,10 +188,12 @@
         newButton.appendChild(stats);
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(img);
-        
-        newButton.addEventListener("click", function() {
+
+        function listener(event) {
           Card.playerAction(array, tbItem.id, "player");
-        });
+        }
+        
+        newButton.addEventListener("click", listener);
 
         tbItem.appendChild(newButton);
 
@@ -216,9 +218,11 @@
         newButton.appendChild(document.createElement("br"));
         newButton.appendChild(img);
 
-        newButton.addEventListener("click", function() {
+        function listener(event) {
           card.findTarget(tbItem.id);
-        });
+        }
+
+        newButton.addEventListener("click", listener);
 
         tbItem.appendChild(newButton);
         cHand.appendChild(tbItem);
@@ -234,12 +238,12 @@
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ") | " + "energy: " + unit.energy;
           unitTB.id = i;
 
-          unitB.removeEventListener("click", function() {
-            Card.playerAction(array, tbItem.id, "player");
-          });
-          unitB.addEventListener("click", function() {
+          function listener(event) {
             Card.playerAction(cAlliesA, i, "player");
-          });
+          }
+
+          unitB.removeEventListener("click", listener);
+          unitB.addEventListener("click", listener);
         }
 
         for (let i = 0; i < cEnemiesA.length; i++) {
@@ -250,12 +254,12 @@
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ") | " + "energy: " + unit.energy;
           unitTB.id = i;
 
-          unitB.removeEventListener("click", function() {
-            Card.playerAction(array, tbItem.id, "player");
-          });
-          unitB.addEventListener("click", function() {
-            Card.playerAction(cEnemiesA, i, "player")
-          });
+          function listener(event) {
+            Card.playerAction(cAlliesA, i, "player");
+          }
+
+          unitB.removeEventListener("click", listener);
+          unitB.addEventListener("click", listener);
         }
         
         var hand = cAlliesA[selectedD].deck.hand;
@@ -265,14 +269,13 @@
           var card = hand[i];
           cardB.textContent = card.cost + " energy | " + card.name + " | " + card.desc;
           cardTB.id = i;
-          console.log("id:"+i);
 
-          cardB.removeEventListener("click", function() {
+          function listener(event) {
             card.findTarget(i);
-          });          
-          cardB.addEventListener("click", function() {
-            card.findTarget(i);
-          });
+          }
+
+          cardB.removeEventListener("click", listener);          
+          cardB.addEventListener("click", listener);
 
         }
       }
