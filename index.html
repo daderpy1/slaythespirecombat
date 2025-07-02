@@ -128,7 +128,6 @@
 
       findTarget(index) { //current card, expects only player use
         searching = index;
-        console.log("searching:"+searching);
         addLog("use on who?");
       }
 
@@ -362,6 +361,7 @@
       if (cAlliesA.length == 0) {
         cAlliesA.push(allies[0]);
         Update.makeUnitB(cAlliesA, 0);
+        console.log("hi");
         GameManager.startFight();
       } else {
         GameManager.endTurn();
