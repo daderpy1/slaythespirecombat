@@ -85,7 +85,6 @@
           }
         } else {
           this.health -= this.damage;
-          console.log(this.health);
         }
         if (this.health <= 0) {
           Update.removeB("enemy", index);
@@ -136,7 +135,6 @@
 
       findTarget(index) { //current card, expects only player use
         searching = index;
-        console.log(searching);
         addLog("use on who?");
       }
 
@@ -248,7 +246,6 @@
           var unit = cAlliesA[i];
           unitB.textContent = unit.name + " | " + unit.health + " (" + unit.shield + ")";
           unitTB.id = "ally" + i;
-          console.log(unit.health);
         }
 
         for (let i = 0; i < cEnemiesA.length; i++) {
@@ -280,10 +277,6 @@
         } else if (target == "card") {
           var table = cHand;
         }
-
-        console.log(table);
-        console.log(table.children);
-        console.log(index);
 
         table.children[index].remove();
         Update.stats();
