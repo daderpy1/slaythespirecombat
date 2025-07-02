@@ -263,6 +263,7 @@
           var card = deck[i];
           cardB.textContent = card.energy + " energy | " + card.name + " | " + card.desc;
           cardTB.id = i;
+          console.log("id:"+i);
           newButton.removeEventListener("click", function() {
             card.findTarget(tbItem.id);
           });
